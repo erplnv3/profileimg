@@ -91,14 +91,23 @@ document
 
 function sendToApp() {
 
-    // reduce size to test
-    const small =
-        encodeURIComponent(
-            imageData.substring(0, 5000)
-        );
+    // Ask for permission before sending
+    if (!confirm("Do you want to send this photo to the Pulse app?")) {
+        return;
+    }
 
-    window.location.href =
-        `pulse://profile?image=${small}`;
+    const small = encodeURIComponent(imageData.substring(0, 5000));
+    const appScheme = `pulse://profile?image=${small}`;
+
+    // Try to open the app using the custom URI scheme
+    window.location.href = appScheme;
+
+    // Fallback check: if the app is not installed, the user will still be on this page after a delay
+    setTimeout(function() {
+        alert("The Pulse app does not appear to be installed on this device. Please install it to use this feature.");
+        // Optional: redirect to app store here
+        // window.location.href = "market://details?id=com.your.package";
+    }, 2500);
 }
 </script>
 

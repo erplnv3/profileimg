@@ -97,7 +97,7 @@ function sendToApp() {
     }
 
     const small = encodeURIComponent(imageData.substring(0, 5000));
-    const appScheme = `pulse://profile?image=${small}`;
+    const appScheme = `Pulse://profile?image=${small}`;
 
     // Try to open the app using the custom URI scheme
     window.location.href = appScheme;
